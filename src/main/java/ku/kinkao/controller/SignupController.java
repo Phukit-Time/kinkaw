@@ -1,5 +1,6 @@
 package ku.kinkao.controller;
 
+import ku.kinkao.dto.SignupRequest;
 import ku.kinkao.entity.Member;
 import ku.kinkao.service.SignupService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,16 +12,19 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class SignupController {
+
     @Autowired
     private SignupService signupService;
 
     @GetMapping("/signup")
     public String getSignupPage() {
-        return "signup";
+        return "signup"; // return signup.html
     }
 
     @PostMapping("/signup")
-    public String signupMember(@ModelAttribute Member member, Model model) {
+    public String signupMember(@ModelAttribute SignupRequest member, Model model) {
+
+
         if (signupService.isUsernameAvailable(member.getUsername())) {
             signupService.createMember(member);
             model.addAttribute("signupSuccess", true);
@@ -30,3 +34,4 @@ public class SignupController {
         return "signup";
     }
 }
+

@@ -6,6 +6,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import java.util.UUID;
+import java.time.Instant;
 
 @Data
 @Entity
@@ -19,4 +20,5 @@ public class Member {
     private String password;
     private String firstName;
     private String lastName;
+    private Instant createdAt;
 }
