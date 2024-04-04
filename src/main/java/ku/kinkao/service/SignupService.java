@@ -31,18 +31,19 @@ public class SignupService {
     }
 
 
-    public void createMember(SignupRequest dto) {
-        Member dao = modelMapper.map(dto, Member.class);
-        dao.setCreatedAt(Instant.now());
+    public void createMember(SignupRequest member) {
+        Member newMember = modelMapper.map(member, Member.class);
+        newMember.setCreatedAt(Instant.now());
+        newMember.setRole("ROLE_USER");
 
 
-        String hashedPassword = passwordEncoder.encode(dto.getPassword());
+        String hashedPassword = passwordEncoder.encode(member.getPassword());
 
 
-        dao.setPassword(hashedPassword);
+        newMember.setPassword(hashedPassword);
 
 
-        repository.save(dao);
+        repository.save(newMember);
     }
 
 
@@ -50,4 +51,3 @@ public class SignupService {
         return repository.findByUsername(username);
     }
 }
-
